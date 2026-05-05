@@ -1,0 +1,34 @@
+Attribute VB_Name = "复制单元格式三联单"
+Sub copyfomat_3()
+
+Dim i As Integer
+Dim j As Integer
+k = 2
+j = 34
+i = 0
+'若数据列未到最后一行,收款人户名不为空
+
+While Len(Trim(Worksheets("数据表").Cells(k, 2))) > 0
+
+i = i + 1
+k = k + 1
+
+Wend
+
+
+
+endline = i
+
+For i = 2 To endline
+
+Sheet2.Rows("1:33").Select
+Selection.Copy
+Sheet2.Rows(j & ":" & j).Select
+ActiveSheet.Paste
+j = j + 33
+
+Next
+
+MsgBox ("共生成" & (endline) * 3 & "个表单")
+
+End Sub

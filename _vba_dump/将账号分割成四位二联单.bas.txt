@@ -1,0 +1,22 @@
+Attribute VB_Name = "将账号分割成四位二联单"
+Sub Devide_by_4()
+Attribute Devide_by_4.VB_ProcData.VB_Invoke_Func = " \n14"
+'
+Dim StrZH, StrZh4 As String
+StrZH = "1234567"
+Dim i, k As Integer
+
+StrZh4 = ""
+k = (Len(StrZH)) / 4
+strlen = Len(StrZH)
+'MsgBox (k)
+
+For i = 1 To strlen Step 4
+StrZh4 = StrZh4 & Mid(StrZH, i, 4) & " "
+Next
+
+
+MsgBox (StrZh4)
+
+
+End Sub

@@ -1,0 +1,6 @@
+Attribute VB_Name = "clearprint"
+Sub clear_printsheet()
+Sheet2.Rows("1:65535").Clear
+MsgBox ("打印数据清除完毕")
+
+End Sub

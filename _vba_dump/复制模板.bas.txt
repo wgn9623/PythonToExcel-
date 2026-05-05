@@ -1,0 +1,21 @@
+Attribute VB_Name = "复制模板"
+
+Sub copy_moban(sheetname As String)
+Attribute copy_moban.VB_Description = "宏由 User 录制，时间: 2013-11-20"
+Attribute copy_moban.VB_ProcData.VB_Invoke_Func = " \n14"
+ 
+ Call clear_printsheet '清除打印格式
+
+
+ Worksheets(sheetname).Activate
+ Worksheets(sheetname).Cells.Select
+ Selection.Copy
+ 
+  Sheet2.Activate
+  Cells.Select
+  Sheet2.Paste
+  
+   'Worksheets (sheetname)
+   
+ 
+End Sub

@@ -1,0 +1,35 @@
+{
+  "sequence": {
+    "current": 1
+  },
+  "payers": [
+    {
+      "name": "本单位测试付款户",
+      "bank": "中国农业银行本地支行",
+      "account": "1002003004005006007",
+      "updated_at": "2026-04-17 20:48:01"
+    }
+  ],
+  "payees": [],
+  "printed_transfers": [],
+  "preferences": {
+    "default_template": "模板1_转账支票",
+    "operator_name": "",
+    "theme_name": "classic",
+    "default_payer": {
+      "name": "本单位测试付款户",
+      "bank": "中国农业银行本地支行",
+      "account": "1002003004005006007"
+    }
+  },
+  "machines": {
+    "000EC6B9CA2A": {
+      "prefix": "CA2A",
+      "current": 9,
+      "created_at": "2026-04-18 19:13:47",
+      "last_used_at": "2026-04-18 19:44:52",
+      "device_name": "WGNNEWPC",
+      "physical_address": "00:0E:C6:B9:CA:2A"
+    }
+  }
+}

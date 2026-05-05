@@ -1,0 +1,139 @@
+Attribute VB_Name = "票据打印程序"
+Attribute VB_Base = "0{8A3A7F48-E340-4CA7-91EB-329E1AD09D71}{03591DBC-0F5D-4CBC-8D27-D756B287217C}"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Attribute VB_TemplateDerived = False
+Attribute VB_Customizable = False
+Dim selected_moban As String
+
+Private Sub CommandButton1_Click()
+Call clear_printsheet
+
+
+End Sub
+
+
+
+
+
+
+
+
+
+
+Private Sub command_update_Click()
+If Len(TxtHead.Text) <= 4 And IsNumeric(TxtSn.Text) = True Then
+ 
+ 
+ Worksheets("顺序号").Cells(2, "B") = TxtSn.Text
+ Worksheets("顺序号").Cells(2, "A") = TxtHead.Text
+ '-------------------------------------------------------------------
+ TxtSn.Text = Worksheets("顺序号").Cells(2, "B")
+ TxtHead.Text = Worksheets("顺序号").Cells(2, "A")
+ MsgBox ("更新成功")
+ Else
+  MsgBox ("不和要求前缀不能超过四位,序列号必须是数字")
+ End If
+End Sub
+
+Private Sub CommandButton2_Click()
+If selected_moban = "模板5" Then
+Call copyfomat_3
+Call fuzhi_3
+ElseIf selected_moban = "模板6" Then
+Call copyfomat_3
+Call fuzhi_3
+
+Else
+Call copyfomat_2
+Call fuzhi_2
+
+End If
+
+
+End Sub
+
+Private Sub CommandButton3_Click()
+Unload Me
+
+End Sub
+
+Private Sub CommandButton4_Click()
+'MsgBox (selected_moban)
+Call copy_moban(selected_moban)
+End Sub
+
+Private Sub CommandButton5_Click()
+'Sheet2.PrintPreview
+If selected_moban = "模板5" Then
+Call Add_Sn_Number_3
+
+ElseIf selected_moban = "模板6" Then
+Call Add_Sn_Number_3
+
+Else
+Call Add_Sn_Number_2
+
+
+End If
+
+'备份数据
+'If CheckBox1.Value = True Then
+
+'Call backup_data
+'MsgBox ("数据备份成功")
+'End If
+
+
+End Sub
+
+
+
+Private Sub OptionButton1_Click()
+selected_moban = "模板1"
+End Sub
+
+Private Sub OptionButton2_Click()
+selected_moban = "模板2"
+End Sub
+
+Private Sub OptionButton3_Click()
+selected_moban = "模板3"
+End Sub
+
+Private Sub OptionButton4_Click()
+selected_moban = "模板4"
+End Sub
+
+Private Sub OptionButton5_Click()
+selected_moban = "模板5"
+End Sub
+
+
+Private Sub OptionButton6_Click()
+selected_moban = "模板6"
+End Sub
+
+Private Sub TxtHead_Change()
+command_update.Enabled = True
+
+End Sub
+
+Private Sub TxtSn_Change()
+command_update.Enabled = True
+End Sub
+
+Private Sub UserForm_Click()
+
+End Sub
+
+Private Sub UserForm_Initialize()
+selected_moban = "模板3"
+TxtSn.Text = Worksheets("顺序号").Cells(2, "B")
+TxtHead.Text = Worksheets("顺序号").Cells(2, "A")
+command_update.Enabled = False
+
+
+End Sub

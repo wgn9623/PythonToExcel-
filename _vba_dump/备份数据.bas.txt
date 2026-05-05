@@ -1,0 +1,53 @@
+Attribute VB_Name = "备份数据"
+Sub backup_data()
+
+Dim i As Long
+Dim j As Long
+i = 2
+j = 2
+
+
+'备份表第几行不为空
+While Len(Worksheets("备份").Cells(i, 2)) > 0
+
+
+i = i + 1
+Wend
+
+'Dim First_Sn As String
+'First_Sn = Worksheets("打印").Cells(2, "I")
+
+'第一个顺序号
+
+'若数据列未到最后一行,收款人户名不为空
+
+Dim k As Long
+k = 0
+
+
+'j总是从第二行开始赋值,并且直到没数据为止
+While Len(Worksheets("数据表").Cells(j, 2)) > 0
+
+Worksheets("备份").Cells(i, "A") = Worksheets("打印").Cells(2 + 22 * k, "I")
+Worksheets("备份").Cells(i, "B") = Worksheets("数据表").Cells(j, "B")
+Worksheets("备份").Cells(i, "C") = Worksheets("数据表").Cells(j, "C")
+Worksheets("备份").Cells(i, "D") = Worksheets("数据表").Cells(j, "D")
+Worksheets("备份").Cells(i, "E") = Worksheets("数据表").Cells(j, "E")
+Worksheets("备份").Cells(i, "F") = Worksheets("数据表").Cells(j, "F")
+Worksheets("备份").Cells(i, "G") = Worksheets("数据表").Cells(j, "G")
+Worksheets("备份").Cells(i, "H") = Worksheets("数据表").Cells(j, "H")
+Worksheets("备份").Cells(i, "I") = Worksheets("数据表").Cells(j, "I")
+Worksheets("备份").Cells(i, "J") = Worksheets("数据表").Cells(j, "J")
+Worksheets("备份").Cells(i, "K") = Worksheets("数据表").Cells(j, "K")
+Worksheets("备份").Cells(i, "L") = Worksheets("数据表").Cells(j, "L")
+Worksheets("备份").Cells(i, "M") = Worksheets("数据表").Cells(j, "M")
+Worksheets("备份").Cells(i, "N") = Worksheets("数据表").Cells(j, "N")
+
+k = k + 1
+i = i + 1
+j = j + 1
+Wend
+
+ActiveWorkbook.Save
+
+End Sub

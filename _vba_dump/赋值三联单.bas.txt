@@ -1,0 +1,106 @@
+Attribute VB_Name = "赋值三联单"
+Sub fuzhi_3()
+'三联单赋值
+Dim i As Integer
+Dim j As Integer
+i = 2
+j = 2
+
+'若数据列未到最后一行,收款人户名不为空
+While Len(Worksheets("数据表").Cells(i, 2)) > 0
+
+'签发日期
+Worksheets("打印").Cells(j, "E") = Worksheets("数据表").Cells(i, "I")
+Worksheets("打印").Cells(j + 11, "E") = Worksheets("数据表").Cells(i, "I")
+Worksheets("打印").Cells(j + 22, "E") = Worksheets("数据表").Cells(i, "I")
+
+'收款人户名
+Worksheets("打印").Cells(j + 1, "G") = Worksheets("数据表").Cells(i, "B")
+Worksheets("打印").Cells(j + 11 + 1, "G") = Worksheets("数据表").Cells(i, "B")
+Worksheets("打印").Cells(j + 22 + 1, "G") = Worksheets("数据表").Cells(i, "B")
+
+'付款人户名
+Worksheets("打印").Cells(j + 1, "D") = Worksheets("数据表").Cells(i, "E")
+Worksheets("打印").Cells(j + 11 + 1, "D") = Worksheets("数据表").Cells(i, "E")
+Worksheets("打印").Cells(j + 22 + 1, "D") = Worksheets("数据表").Cells(i, "E")
+
+'付款人账号
+Worksheets("打印").Cells(j + 2, "D") = Worksheets("数据表").Cells(i, "F")
+Worksheets("打印").Cells(j + 11 + 2, "D") = Worksheets("数据表").Cells(i, "F")
+Worksheets("打印").Cells(j + 22 + 2, "D") = Worksheets("数据表").Cells(i, "F")
+'大写金额
+ '=IF((C9-INT(C9))=0,TEXT(C9,"[DBNUM2]")&"元整",IF(INT(C9*10)-C9*10=0,TEXT(INT(C9),"[DBNUM2]")&"元"&TEXT((INT(C9*10)-INT(C9)*10),"[DBNUM2]")&"角整",TEXT(INT(C9),"[DBNUM2]")&"元"&IF(INT(C9*10)-INT(C9)*10=0,"零",TEXT(INT(C9*10)-INT(C9)*10,"[DBNUM2]")&"角")&TEXT(RIGHT(C9,1),"[DBNUM2]")&"分"))
+'Worksheets("打印").Cells(j + 4, "C") = Worksheets("数据表").Cells(i, "G")
+'Worksheets("打印").Cells(j + 4, "C") = "=数据表!G" & i
+'提取值
+num = "数据表!G" & i
+
+Worksheets("打印").Cells(j + 4, "D") = "=IF((" & num & "-INT(" & num & "))=0,TEXT(" & num & ", ""[DBNUM2]"")" & "&""元整""" & ",IF(INT(" & num & "*10)-" & num & "*10=0,TEXT(INT(" & num & "),""[DBNUM2]"")" & "&""元""" & "&" & "Text((Int(" & num & " * 10) - Int(" & num & ") * 10), ""[DBNUM2]"")" & "&""角整""" & " ,TEXT(INT(" & num & "),""[DBNUM2]"")" & "&""元""" & "&" & "IF(INT(" & num & "*10)-INT(" & num & ")*10=0," & """零""" & ",TEXT(INT(" & num & "*10)-INT(" & num & ")*10,""[DBNUM2]"") " & "&""角"")" & "&" & "TEXT(RIGHT(" & num & ",1),""[DBNUM2]"")" & "&""分""))"
+
+Worksheets("打印").Cells(j + 11 + 4, "D") = "=IF((" & num & "-INT(" & num & "))=0,TEXT(" & num & ", ""[DBNUM2]"")" & "&""元整""" & ",IF(INT(" & num & "*10)-" & num & "*10=0,TEXT(INT(" & num & "),""[DBNUM2]"")" & "&""元""" & "&" & "Text((Int(" & num & " * 10) - Int(" & num & ") * 10), ""[DBNUM2]"")" & "&""角整""" & " ,TEXT(INT(" & num & "),""[DBNUM2]"")" & "&""元""" & "&" & "IF(INT(" & num & "*10)-INT(" & num & ")*10=0," & """零""" & ",TEXT(INT(" & num & "*10)-INT(" & num & ")*10,""[DBNUM2]"") " & "&""角"")" & "&" & "TEXT(RIGHT(" & num & ",1),""[DBNUM2]"")" & "&""分""))"
+
+Worksheets("打印").Cells(j + 22 + 4, "D") = "=IF((" & num & "-INT(" & num & "))=0,TEXT(" & num & ", ""[DBNUM2]"")" & "&""元整""" & ",IF(INT(" & num & "*10)-" & num & "*10=0,TEXT(INT(" & num & "),""[DBNUM2]"")" & "&""元""" & "&" & "Text((Int(" & num & " * 10) - Int(" & num & ") * 10), ""[DBNUM2]"")" & "&""角整""" & " ,TEXT(INT(" & num & "),""[DBNUM2]"")" & "&""元""" & "&" & "IF(INT(" & num & "*10)-INT(" & num & ")*10=0," & """零""" & ",TEXT(INT(" & num & "*10)-INT(" & num & ")*10,""[DBNUM2]"") " & "&""角"")" & "&" & "TEXT(RIGHT(" & num & ",1),""[DBNUM2]"")" & "&""分""))"
+'小写金额拆成单个字符并赋值'''''''''''''''''''''''''''''''''''''''''''
+numX = Application.WorksheetFunction.Text(Worksheets("数据表").Cells(i, "G"), "0.00")
+
+'Application.WorksheetFunction.Text
+strlen = Len(numX)
+'去掉小数点
+numX = Mid(numX, 1, strlen - 3) & Mid(numX, strlen - 1, 2)
+
+'清空数字
+For k = 1 To 10
+Worksheets("打印").Cells(j + 5, 18 - k) = ""
+Worksheets("打印").Cells(j + 5 + 11, 18 - k) = ""
+Worksheets("打印").Cells(j + 5 + 22, 18 - k) = ""
+Next
+
+'
+
+'按次序填数字
+For k = 1 To strlen - 1
+Worksheets("打印").Cells(j + 5, 18 - k) = Mid(numX, strlen - k, 1)
+Worksheets("打印").Cells(j + 5 + 11, 18 - k) = Mid(numX, strlen - k, 1)
+Worksheets("打印").Cells(j + 5 + 22, 18 - k) = Mid(numX, strlen - k, 1)
+Next
+
+'打人民币符号
+Worksheets("打印").Cells(j + 5, 18 - k) = "￥"
+Worksheets("打印").Cells(j + 5 + 11, 18 - k) = "￥"
+Worksheets("打印").Cells(j + 5 + 22, 18 - k) = "￥"
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+'备注''''''''''''''''''''''''
+Worksheets("打印").Cells(j + 8, "B") = Worksheets("数据表").Cells(i, "H")
+Worksheets("打印").Cells(j + 8 + 11, "B") = Worksheets("数据表").Cells(i, "H")
+Worksheets("打印").Cells(j + 8 + 22, "B") = Worksheets("数据表").Cells(i, "H")
+'''''''''''''''''''''''''''''
+
+'收款人帐号
+Worksheets("打印").Cells(j + 2, "G") = Worksheets("数据表").Cells(i, "C")
+Worksheets("打印").Cells(j + 2 + 11, "G") = Worksheets("数据表").Cells(i, "C")
+Worksheets("打印").Cells(j + 2 + 22, "G") = Worksheets("数据表").Cells(i, "C")
+
+''''''''''''''''''''''''
+
+'收款人开户行
+Worksheets("打印").Cells(j + 3, "D") = Worksheets("数据表").Cells(i, "D")
+Worksheets("打印").Cells(j + 3 + 11, "D") = Worksheets("数据表").Cells(i, "D")
+Worksheets("打印").Cells(j + 3 + 22, "D") = Worksheets("数据表").Cells(i, "D")
+'付款人开户行
+Worksheets("打印").Cells(j + 3, "G") = Worksheets("数据表").Cells(i, "J")
+Worksheets("打印").Cells(j + 3 + 11, "G") = Worksheets("数据表").Cells(i, "J")
+Worksheets("打印").Cells(j + 3 + 22, "G") = Worksheets("数据表").Cells(i, "J")
+
+
+
+i = i + 1
+j = j + 33
+
+Wend
+
+MsgBox ("数据赋值成功")
+
+End Sub
+

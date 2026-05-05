@@ -1,0 +1,66 @@
+Attribute VB_Name = "打印票据加顺序号三联单"
+Sub Add_Sn_Number_3()
+
+'如果是模版1-4则 ，若果是模版5 则
+Dim i As Integer
+Dim j As Integer
+Dim k As Integer
+
+Dim SNnumber As Long
+Dim SNhead As String
+
+SNhead = Worksheets("顺序号").Cells(2, "A")
+SNnumber = Worksheets("顺序号").Cells(2, "B")
+
+i = 0
+k = 2
+'''''''''''''''''获取记录条数''''''''''''''''''''''''
+While Len(Trim(Worksheets("数据表").Cells(k, 2))) > 0
+
+i = i + 1
+k = k + 1
+
+Wend
+endline = i
+
+
+'''''''''''''''''获取记录条数'''''''''''''''''''''
+
+
+i = 2
+
+For j = 1 To endline
+
+Worksheets("打印").Range("I" & i & ":n" & i).MergeCells = True '合并【Ni---Ii】单元格
+Worksheets("打印").Cells(i, "I") = SNhead & SNnumber
+Worksheets("打印").Cells(i, "I").Font.Name = "黑体"
+Worksheets("打印").Cells(i, "I").Font.Bold = True
+
+
+Worksheets("打印").Range("I" & i + 11 & ":n" & i + 11).MergeCells = True '合并【Ni---Ii】单元格
+Worksheets("打印").Cells(i + 11, "I") = SNhead & SNnumber
+Worksheets("打印").Cells(i + 11, "I").Font.Name = "黑体"
+Worksheets("打印").Cells(i + 11, "I").Font.Bold = True
+
+Worksheets("打印").Range("I" & i + 11 + 11 & ":n" & i + 11 + 11).MergeCells = True '合并【Ni---Ii】单元格
+Worksheets("打印").Cells(i + 11 + 11, "I") = SNhead & SNnumber
+Worksheets("打印").Cells(i + 11 + 11, "I").Font.Name = "黑体"
+Worksheets("打印").Cells(i + 11 + 11, "I").Font.Bold = True
+
+
+
+SNnumber = SNnumber + 1
+i = i + 33
+
+
+Next
+
+
+'写回顺序号表
+'SNnumber写回时，已自增1.
+Worksheets("顺序号").Cells(2, "B") = SNnumber
+
+MsgBox ("顺序号赋值完毕")
+ActiveWorkbook.Save
+End Sub
+
